@@ -21,8 +21,9 @@ const Product = ({ product }) => {
                     <Img src={ img } alt='product' />
                 </Link>
 
-                <Button disabled={ inCart ? inCart : '' }
+                <Button inCart={ inCart }
                     label='add to cart'
+                    disabledLabel="added"
                 />
             </Card>
         </ProductWrapper>

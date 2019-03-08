@@ -3,22 +3,33 @@ import styled from 'styled-components';
 
 const Button = props => {
     const {
-        disabled,
+        disabledLabel,
+        inCart,
         icon,
         label,
         onClick
     } = props;
 
     return (
-        <ButtonWrapper disabled = { disabled } onClick={ onClick }>
+        <ButtonWrapper disabled = { inCart }
+            onClick={ onClick }
+        >
             {
                 icon &&
                     <i className={ `fas fa-${ icon }` } />
             }
 
-            <Label>
-                { label }
-            </Label>
+            {
+                inCart ?
+                    <Label>
+                        { disabledLabel }
+                    </Label>
+                    :
+                    <Label>
+                        { label }
+                    </Label>
+            }
+
         </ButtonWrapper>
     );
 }
