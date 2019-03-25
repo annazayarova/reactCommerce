@@ -2,29 +2,27 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import Button from './Button';
+import { ProductConsumer } from '../context';
 
 const Product = ({ product }) => {
     const {
-        id,
-        img,
-        inCart,
-        onClick,
+        img1,
         price,
         title
     } = product;
 
     return (
         <ProductWrapper>
-            <Card onClick={ onClick }>
+            <Card>
                 <Link to='/details'>
-                    <Img src={ img } alt='product' />
+                    <Img src={ img1 } alt='Irina Serbat' />
                 </Link>
 
-                <Button inCart={ inCart }
-                    label='add to cart'
-                    disabledLabel="added"
-                />
+                <CardFooter>
+                    <span>{ title }</span>
+
+                    <Price>$ { price }</Price>
+                </CardFooter>
             </Card>
         </ProductWrapper>
     );
@@ -32,13 +30,42 @@ const Product = ({ product }) => {
 
 export default Product;
 
+const Card = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+`
+
+const CardFooter = styled.div`
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    font-size: 1em;
+`
+
+const Img = styled.img`
+    margin-bottom: 10px;
+    transition: all 0.6s ease;
+    overflow: hidden;
+    &:hover {
+        transform: scale(1.02)
+    }
+`
+
+const Price = styled.span`
+    margin-top: 5px;
+    font-family: ${ props => props.theme.secondaryFont };
+    color: ${ props => props.theme.greyColor };
+    font-size: 1.1em;
+`
+
 const ProductWrapper = styled.div`
-    -ms-flex: auto;
     box-sizing: border-box;
-    flex-basis: 33.33333%;
-    padding: 15px;
+    flex: auto;
+    padding: 20px;
     position: relative;
-    width: 259px;
+    width: 33.3333333%;
 
     @media(max-width: 815px) {
         flex-basis: 50%;
@@ -46,14 +73,6 @@ const ProductWrapper = styled.div`
 
     @media(max-width: 555px) {
         flex-basis: 100%;
+        padding: 20px 0;
     }
-`
-const Card = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
-`
-
-const Img = styled.img`
-margin-bottom: 10px;
 `

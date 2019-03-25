@@ -1,24 +1,34 @@
 import React from 'react';
 import styled from 'styled-components';
+import { withRouter } from 'react-router-dom';
 
 const Button = props => {
     const {
         disabledLabel,
         inCart,
-        icon,
-        label,
-        onClick
+        label
     } = props;
+
+    const handleClick = (event) => {
+        const {
+            history,
+            onClick,
+            to
+        } = this.props;
+
+        if (to) {
+            return history.push(to);
+        }
+
+        if (typeof onClick === 'function') {
+            return onClick(event);
+        }
+    }
 
     return (
         <ButtonWrapper disabled = { inCart }
-            onClick={ onClick }
+            onClick={ handleClick }
         >
-            {
-                icon &&
-                    <i className={ `fas fa-${ icon }` } />
-            }
-
             {
                 inCart ?
                     <Label>
@@ -34,22 +44,19 @@ const Button = props => {
     );
 }
 
-export default Button;
+export default withRouter(Button);
 
 const ButtonWrapper = styled.button`
-background: transparent;
-border: none;
-color: var(--text);
-corder-radius: 0;
-cursor: pointer;
-font-size: 14px;
-padding: 0 20px;
-text-transform: uppercase;
-transition: all 0.5s ease;
-
-&:hover {
-    color: var(--link)
-}
+    background: transparent;
+    border: 1px solid ${ props => props.theme.greyColor };
+    color: ${ props => props.theme.inverseColor }
+    corder-radius: 0;
+    cursor: pointer;
+    font-size: 14px;
+    letter-spacing: 1px;
+    padding: 15px 30px;
+    text-transform: uppercase;
+    transition: all 0.5s ease;
 
 &:focus {
     outline: none
@@ -61,5 +68,5 @@ transition: all 0.5s ease;
 }
 `
 const Label = styled.span`
-margin-left: 5px;
+    margin-left: 5px;
 `

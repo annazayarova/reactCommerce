@@ -1,29 +1,32 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from "styled-components";
 
-import Cart from './components/Cart';
-import Default from './components/Default';
-import Details from './components/Details';
-import Navbar from './components/Navbar';
-import ProductList from './components/ProductList';
+import Footer from './components/Footer';
+import NavItems from './components/NavItems';
+import Router from './Router';
+import TopHat from './components/TopHat';
 
-import './App.css';
+import { GlobalStyle, theme } from './GlobalStyle';
 
 class App extends Component {
     render() {
         return (
-            <>
-                <Navbar />
-                <MainLayout>
-                    <Switch>
-                        <Route exact path="/" component={ ProductList } />
-                        <Route path="/details" component={ Details } />
-                        <Route path="/cart" component={ Cart } />
-                        <Route component={ Default } />
-                    </Switch>
-                </MainLayout>
-            </>
+            <ThemeProvider theme={ theme }>
+                <>
+                    <GlobalStyle />
+
+                    <MainLayout>
+                        <TopHat />
+
+                        <NavItems />
+
+                        <Router />
+
+                    </MainLayout>
+
+                    <Footer />
+                </>
+            </ThemeProvider>
         );
     }
 }
@@ -31,7 +34,5 @@ class App extends Component {
 export default App;
 
 const MainLayout = styled.div`
-    position: relative;
-    margin-top: 90px;
-    padding: 0 15px;
+    padding: 0 20px 80px;
 `
